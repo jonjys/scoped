@@ -49,16 +49,22 @@ export default function HomePage() {
             Scoped turns the mess into a fixed-price offer page your client can
             pay against.
           </p>
-          <div className="animate-rise-delay-2 flex flex-wrap items-center gap-3">
+          <div className="animate-rise-delay-2 relative z-10 flex flex-wrap items-center gap-3">
             <Link
               href="/new"
-              className={cn(buttonVariants({ size: "lg" }), "cta-pulse")}
+              className={cn(
+                buttonVariants({ size: "lg" }),
+                "cta-pulse min-h-11 px-5"
+              )}
             >
               Scope a job
             </Link>
             <Link
               href="/pro"
-              className={buttonVariants({ size: "lg", variant: "outline" })}
+              className={cn(
+                buttonVariants({ size: "lg", variant: "outline" }),
+                "min-h-11 bg-white/70 px-5"
+              )}
             >
               See Pro — $19
             </Link>

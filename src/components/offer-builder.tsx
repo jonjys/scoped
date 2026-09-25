@@ -10,12 +10,15 @@ import { splitLines } from "@/lib/money"
 import { OfferPreview } from "@/components/offer-preview"
 
 const defaults = {
-  freelancerName: "",
-  clientName: "",
-  title: "",
-  brief: "",
-  includedText: "Discovery call + written brief\nTwo design directions\nOne revision round\nHandoff files",
-  excludedText: "Ongoing retainer work\nStock photography fees\nRush delivery under 48h",
+  freelancerName: "Alex Rivera",
+  clientName: "Northwind Co.",
+  title: "Homepage redesign — fixed scope",
+  brief:
+    "Need a cleaner homepage by next month. Keep our brand colors. Mobile first. Slack dump from their marketing lead attached in spirit.",
+  includedText:
+    "Discovery call + written brief\nTwo design directions\nOne revision round\nHandoff files",
+  excludedText:
+    "Ongoing retainer work\nStock photography fees\nRush delivery under 48h",
   price: "1800",
   depositPercent: "40",
   deliveryDays: "10",
@@ -76,7 +79,7 @@ export function OfferBuilder({ isPro }: { isPro: boolean }) {
 
   return (
     <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
-      <form onSubmit={onSubmit} className="space-y-6">
+      <form onSubmit={onSubmit} className="relative z-10 space-y-6">
         <div className="space-y-1">
           <p className="font-display text-3xl tracking-tight text-[var(--ink)] md:text-4xl">
             Scope the job
@@ -206,7 +209,7 @@ export function OfferBuilder({ isPro }: { isPro: boolean }) {
           <p className="text-sm text-[var(--muted-ink)]">
             {isPro
               ? "Pro unlocked — unlimited offers."
-              : "Free plan: one live offer."}
+              : "Free plan: one live offer (publishing again replaces it)."}
           </p>
         </div>
       </form>
@@ -225,9 +228,7 @@ export function OfferBuilder({ isPro }: { isPro: boolean }) {
             brief:
               form.brief ||
               "Your brief will land here once you paste the messy ask.",
-            included: included.length
-              ? included
-              : ["Add what’s included"],
+            included: included.length ? included : ["Add what’s included"],
             excluded,
             priceCents: priceCents || 180000,
             depositPercent,

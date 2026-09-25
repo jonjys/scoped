@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { nanoid } from "nanoid"
 import { cookies } from "next/headers"
 import { isProUnlocked } from "@/lib/billing"
-import { listOffers, saveOffer } from "@/lib/store"
+import { deleteOffer, listOffers, saveOffer } from "@/lib/store"
 import type { Offer } from "@/lib/types"
 
 export const runtime = "nodejs"
@@ -66,13 +66,10 @@ export async function POST(request: Request) {
   const unlocked = await isProUnlocked()
   const existing = await listOffers()
   if (!unlocked && existing.length >= 1) {
-    return NextResponse.json(
-      {
-        error: "Free plan allows one live offer. Unlock Scoped Pro for unlimited.",
-        code: "PRO_REQUIRED",
-      },
-      { status: 402 }
-    )
+    // Free plan: replace the single live offer instead of hard-blocking publish.
+    for (const prior of existing) {
+      await deleteOffer(prior.id)
+    }
   }
 
   const offer: Offer = {

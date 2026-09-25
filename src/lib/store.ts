@@ -41,6 +41,14 @@ export async function getOffer(id: string) {
   return all[id] ?? null
 }
 
+export async function deleteOffer(id: string) {
+  const all = await readAll()
+  if (!(id in all)) return false
+  delete all[id]
+  await writeAll(all)
+  return true
+}
+
 export async function listOffers() {
   const all = await readAll()
   return Object.values(all).sort((a, b) =>
