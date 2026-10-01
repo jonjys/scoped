@@ -35,6 +35,19 @@ export function ConnectClient({ baseUrl }: { baseUrl: string }) {
     )
   }, [baseUrl, key])
 
+  const installLink = useMemo(() => {
+    const token = key ?? "sk_scoped_YOUR_KEY"
+    const config = {
+      url: `${baseUrl}/api/mcp`,
+      headers: { Authorization: `Bearer ${token}` },
+    }
+    const b64 =
+      typeof window === "undefined"
+        ? ""
+        : btoa(JSON.stringify(config))
+    return `https://cursor.com/link/mcp?name=scoped&config=${b64}`
+  }, [baseUrl, key])
+
   const curlExample = useMemo(() => {
     const token = key ?? "sk_scoped_YOUR_KEY"
     return `curl -X POST ${baseUrl}/api/v1/offers \\
