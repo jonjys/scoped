@@ -26,7 +26,10 @@ async function readAll(): Promise<Record<string, Offer>> {
       const result = await list({ prefix: BLOB_PATHNAME, limit: 1 })
       const match = result.blobs.find((b) => b.pathname === BLOB_PATHNAME)
       if (!match) return {}
-      const blob = await get(BLOB_PATHNAME, { access: "private" })
+      const blob = await get(BLOB_PATHNAME, {
+        access: "private",
+        useCache: false,
+      })
       if (!blob || blob.statusCode !== 200 || !blob.stream) return {}
       const text = await new Response(blob.stream).text()
       return JSON.parse(text) as Record<string, Offer>
