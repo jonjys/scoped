@@ -15,7 +15,7 @@ The hole: freelancers burn time on vague Slack dumps, scope creep, and unpaid �
 ## AI connection
 
 1. Open `/connect` and create an API key (`sk_scoped_...`)
-2. **Cursor:** paste the MCP config (Settings → MCP)
+2. **Cursor:** paste the MCP config (Settings → MCP), or install as a plugin
 3. **ChatGPT / other agents:** use `/api/openapi` as an Action schema with Bearer auth
 4. Tools: `create_scoped_offer`, `get_scoped_offer`, `list_scoped_offers`
 
@@ -26,6 +26,22 @@ Endpoints:
 - `GET /api/v1/offers/:id` — fetch one
 - `POST /api/mcp` — MCP JSON-RPC
 - `GET /api/openapi` — OpenAPI 3.1
+
+### Cursor Marketplace plugin
+
+This repo is packaged as a Cursor plugin:
+
+- [`.cursor-plugin/plugin.json`](.cursor-plugin/plugin.json)
+- [`mcp.json`](mcp.json) → `https://scoped-theta.vercel.app/api/mcp`
+- [`skills/create-scoped-offer/`](skills/create-scoped-offer/)
+
+To appear as a selectable plugin in Cursor Customize / Marketplace:
+
+1. Make [github.com/jonjys/scoped](https://github.com/jonjys/scoped) **public**
+2. Submit the repo at [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish)
+3. After Cursor’s review, users install it and set `SCOPED_API_KEY` under Plugins → Configure
+
+Until approved, users can still add MCP manually from `/connect`.
 
 ## Run locally
 

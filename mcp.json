@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "scoped": {
+      "url": "https://scoped-theta.vercel.app/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SCOPED_API_KEY}"
+      }
+    }
+  }
+}

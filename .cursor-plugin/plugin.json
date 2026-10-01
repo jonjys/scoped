@@ -1,0 +1,33 @@
+{
+  "name": "scoped",
+  "version": "1.0.0",
+  "description": "Turn messy client briefs into fixed-scope offer pages and collect a deposit before you start.",
+  "author": {
+    "name": "Scoped",
+    "email": "fkornelind@nyttolabs.com"
+  },
+  "homepage": "https://scoped-theta.vercel.app",
+  "repository": "https://github.com/jonjys/scoped",
+  "license": "MIT",
+  "keywords": [
+    "freelance",
+    "proposals",
+    "deposits",
+    "mcp",
+    "offers",
+    "scope"
+  ],
+  "logo": "assets/logo.svg",
+  "mcpServers": "mcp.json",
+  "variables": {
+    "type": "object",
+    "properties": {
+      "SCOPED_API_KEY": {
+        "type": "string",
+        "title": "Scoped API key",
+        "description": "Create at https://scoped-theta.vercel.app/connect — starts with sk_scoped_"
+      }
+    },
+    "required": ["SCOPED_API_KEY"]
+  }
+}

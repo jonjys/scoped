@@ -114,11 +114,22 @@ export function ConnectClient({ baseUrl }: { baseUrl: string }) {
 
       <section className="space-y-4 rounded-2xl border border-[var(--line)] bg-white/70 p-6">
         <h2 className="font-display text-2xl tracking-tight">
-          2. Connect Cursor (MCP)
+          2. Connect Cursor (MCP / plugin)
         </h2>
         <p className="text-[var(--muted-ink)]">
-          Paste into Cursor Settings → MCP. Your agent gets tools to create and
-          fetch Scoped offers from chat.
+          Paste into Cursor Settings → MCP for instant use. For Marketplace
+          listing as a selectable plugin, the repo includes{" "}
+          <code className="text-[var(--ink)]">.cursor-plugin/</code> +{" "}
+          <code className="text-[var(--ink)]">mcp.json</code> — submit at{" "}
+          <a
+            className="underline underline-offset-2"
+            href="https://cursor.com/marketplace/publish"
+            target="_blank"
+            rel="noreferrer"
+          >
+            cursor.com/marketplace/publish
+          </a>{" "}
+          (public GitHub + Cursor review required).
         </p>
         <pre className="overflow-x-auto rounded-lg bg-[var(--ink)] p-4 text-xs leading-relaxed text-[var(--paper)]">
           {cursorConfig}
