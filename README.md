@@ -9,7 +9,7 @@ Paste an inbound client/hiring message. Get a **go/no-go risk score** before you
 This is not a marketplace and not another freelancing CRM.
 
 - The person with the stomach-drop email **is** the customer
-- Free scan in seconds → **49 kr** sealed report (actions + reply script)
+- Free scan in seconds → **$5 / 49:-** sealed report (actions + reply script)
 - No account
 
 Same shape as LiveProof / Vatidence: acute pain, pay-per-use, done.

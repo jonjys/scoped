@@ -4,8 +4,7 @@ import { useEffect, useState, useEffectEvent } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import type { PublicReport } from "@/lib/public-report"
-import { formatMoney } from "@/lib/money"
-import { REPORT_CURRENCY, REPORT_PRICE_ORE } from "@/lib/types"
+import { REPORT_PRICE_LABEL } from "@/lib/types"
 
 const levelLabel = {
   low: "Low risk",
@@ -185,15 +184,13 @@ export function ReportView({
             Get every flag explained, a clear go/no-go action list, and a reply
             script you can send in under a minute. One payment. No account.
           </p>
-          <p className="font-display text-3xl">
-            {formatMoney(REPORT_PRICE_ORE, REPORT_CURRENCY.toUpperCase())}
-          </p>
+          <p className="font-display text-3xl">{REPORT_PRICE_LABEL}</p>
           <Button size="lg" onClick={unlock} disabled={pending || confirming}>
             {confirming
               ? "Confirming payment…"
               : pending
                 ? "Redirecting…"
-                : "Unlock full report — 49 kr"}
+                : `Unlock full report — ${REPORT_PRICE_LABEL}`}
           </Button>
           {error ? (
             <p className="text-sm text-[var(--danger)]" role="alert">

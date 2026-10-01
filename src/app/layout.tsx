@@ -18,7 +18,7 @@ const body = IBM_Plex_Sans({
 export const metadata: Metadata = {
   title: "ClientProof — Check a client before you start",
   description:
-    "Paste an inbound hiring message or brief. Get a go/no-go risk report before you quote or start work. 49 kr sealed report. No account.",
+    "Paste an inbound hiring message or brief. Get a go/no-go risk report before you quote or start work. $5 / 49:- sealed report. No account.",
 }
 
 export default function RootLayout({

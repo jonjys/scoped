@@ -1,4 +1,5 @@
 import { CheckForm } from "@/components/check-form"
+import { REPORT_PRICE_LABEL } from "@/lib/types"
 
 export default function HomePage() {
   return (
@@ -51,7 +52,7 @@ export default function HomePage() {
             },
             {
               title: "You pay, not them",
-              body: "49 kr for the sealed report when the free score isn’t enough.",
+              body: `${REPORT_PRICE_LABEL} for the sealed report when the free score isn’t enough.`,
             },
             {
               title: "Actionable",

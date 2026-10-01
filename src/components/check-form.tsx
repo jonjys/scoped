@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { REPORT_PRICE_LABEL } from "@/lib/types"
 
 export function CheckForm() {
   const router = useRouter()
@@ -83,8 +84,8 @@ export function CheckForm() {
         {pending ? "Scanning…" : "Check before I reply"}
       </Button>
       <p className="text-sm text-[var(--muted-ink)]">
-        Free risk score in seconds. Full sealed report is 49 kr when you need
-        the actions and reply script.
+        Free risk score in seconds. Full sealed report is {REPORT_PRICE_LABEL}{" "}
+        when you need the actions and reply script.
       </p>
     </form>
   )

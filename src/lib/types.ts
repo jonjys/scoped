@@ -30,3 +30,5 @@ export type CheckoutMode = "stripe" | "mock"
 
 export const REPORT_PRICE_ORE = 4900
 export const REPORT_CURRENCY = "sek"
+/** Display price — match LiveProof-style dual label */
+export const REPORT_PRICE_LABEL = "$5 / 49:-"
