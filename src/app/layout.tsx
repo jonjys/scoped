@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { Syne, IBM_Plex_Sans } from "next/font/google"
 import Link from "next/link"
-import { isProUnlocked } from "@/lib/billing"
 import "./globals.css"
 
 const display = Syne({
@@ -17,18 +16,16 @@ const body = IBM_Plex_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "Scoped — Fixed-price offers with deposits",
+  title: "ClientProof — Check a client before you start",
   description:
-    "Turn a messy client brief into a fixed-scope offer page and collect a deposit before you start.",
+    "Paste an inbound hiring message or brief. Get a go/no-go risk report before you quote or start work. 49 kr sealed report. No account.",
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const isPro = await isProUnlocked()
-
   return (
     <html
       lang="en"
@@ -37,38 +34,26 @@ export default async function RootLayout({
       <body className="font-body min-h-full flex flex-col text-[var(--ink)]">
         <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-5 sm:px-8">
           <Link href="/" className="font-display text-xl tracking-tight">
-            Scoped
+            ClientProof
           </Link>
           <nav className="flex items-center gap-4 text-sm">
-            <Link
-              href="/connect"
+            <a
+              href="#how"
               className="text-[var(--muted-ink)] transition hover:text-[var(--ink)]"
             >
-              Connect AI
-            </Link>
+              How it works
+            </a>
             <Link
-              href="/new"
-              className="text-[var(--muted-ink)] transition hover:text-[var(--ink)]"
+              href="/#check"
+              className="rounded-md bg-[var(--ink)] px-3 py-1.5 text-[var(--paper)] transition hover:bg-[var(--ink)]/90"
             >
-              New offer
+              Run a check
             </Link>
-            {isPro ? (
-              <span className="rounded-md bg-[var(--acid)] px-2.5 py-1 text-xs font-medium text-[var(--ink)]">
-                Pro
-              </span>
-            ) : (
-              <Link
-                href="/pro"
-                className="rounded-md bg-[var(--ink)] px-3 py-1.5 text-[var(--paper)] transition hover:bg-[var(--ink)]/90"
-              >
-                Get Pro
-              </Link>
-            )}
           </nav>
         </header>
         <main className="flex-1">{children}</main>
         <footer className="mx-auto w-full max-w-6xl px-5 py-10 text-sm text-[var(--muted-ink)] sm:px-8">
-          Scoped fills the hole between “sounds good” and a paid deposit.
+          ClientProof — Nytto Labs. Pay once when the free score isn’t enough.
         </footer>
       </body>
     </html>

@@ -49,13 +49,15 @@
 }
 
 :root {
-  --ink: #0b1f1a;
-  --paper: #f3f6f1;
-  --paper-deep: #e4ebe3;
-  --muted-ink: #5c6f67;
-  --acid: #c8f542;
-  --acid-deep: #6f9a12;
-  --line: #c9d5cc;
+  --ink: #1a2430;
+  --paper: #f2f5f8;
+  --paper-deep: #e4ebf1;
+  --muted-ink: #5d6b78;
+  --signal: #e4572e;
+  --signal-soft: #ffd7cb;
+  --acid: #e4572e;
+  --acid-deep: #b53d1c;
+  --line: #c9d3dd;
   --danger: #b42318;
   --danger-soft: #fcebea;
 
@@ -71,17 +73,17 @@
   --secondary-foreground: var(--ink);
   --muted: var(--paper-deep);
   --muted-foreground: var(--muted-ink);
-  --accent: var(--acid);
+  --accent: var(--signal-soft);
   --accent-foreground: var(--ink);
   --destructive: var(--danger);
   --border: var(--line);
   --input: var(--line);
   --ring: color-mix(in oklab, var(--ink) 40%, transparent);
   --chart-1: var(--ink);
-  --chart-2: var(--acid-deep);
+  --chart-2: var(--signal);
   --chart-3: var(--muted-ink);
-  --chart-4: #2f5d50;
-  --chart-5: #9bb59f;
+  --chart-4: #2f4a63;
+  --chart-5: #9aafc0;
   --radius: 0.7rem;
   --sidebar: var(--paper);
   --sidebar-foreground: var(--ink);
@@ -100,9 +102,9 @@
   body {
     @apply bg-background text-foreground;
     background-image:
-      radial-gradient(ellipse 90% 60% at 10% -10%, rgba(200, 245, 66, 0.22), transparent 55%),
-      radial-gradient(ellipse 70% 50% at 100% 0%, rgba(47, 93, 80, 0.18), transparent 50%),
-      linear-gradient(180deg, #f7faf6 0%, #eef3ee 45%, #e7eee8 100%);
+      radial-gradient(ellipse 90% 55% at 8% -12%, rgba(228, 87, 46, 0.16), transparent 55%),
+      radial-gradient(ellipse 70% 50% at 100% 0%, rgba(47, 74, 99, 0.14), transparent 52%),
+      linear-gradient(180deg, #f7f9fb 0%, #eef2f6 48%, #e7edf3 100%);
     background-attachment: fixed;
   }
   html {
@@ -142,10 +144,10 @@
 @keyframes pulse-acid {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(200, 245, 66, 0.45);
+    box-shadow: 0 0 0 0 rgba(228, 87, 46, 0.35);
   }
   50% {
-    box-shadow: 0 0 0 12px rgba(200, 245, 66, 0);
+    box-shadow: 0 0 0 12px rgba(228, 87, 46, 0);
   }
 }
 
@@ -229,8 +231,8 @@
 
 .hero-panel {
   box-shadow:
-    0 40px 90px -48px rgba(11, 31, 26, 0.85),
-    0 0 0 1px rgba(200, 245, 66, 0.12);
+    0 40px 90px -48px rgba(26, 36, 48, 0.55),
+    0 0 0 1px rgba(228, 87, 46, 0.1);
   animation: panel-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
 }
 

@@ -1,16 +1,14 @@
 import { NextResponse } from "next/server"
-import { cookies } from "next/headers"
-import { PRO_COOKIE } from "@/lib/billing"
 import { getCheckoutMode } from "@/lib/stripe-mode"
-import { markDepositPaid } from "@/lib/store"
+import { unlockReport } from "@/lib/store"
+import { toPublicReport } from "@/lib/public-report"
 
 export const runtime = "nodejs"
 
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as {
     sessionId?: string
-    kind?: "pro" | "deposit"
-    offerId?: string
+    reportId?: string
     mock?: boolean
   }
 
@@ -23,35 +21,23 @@ export async function POST(request: Request) {
     if (session.payment_status !== "paid") {
       return NextResponse.json({ error: "Payment incomplete." }, { status: 400 })
     }
-    if (session.metadata?.kind === "pro" || body.kind === "pro") {
-      const jar = await cookies()
-      jar.set(PRO_COOKIE, "1", {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        maxAge: 60 * 60 * 24 * 365,
-      })
-      return NextResponse.json({ ok: true, kind: "pro" })
+    const reportId = session.metadata?.reportId ?? body.reportId
+    if (!reportId) {
+      return NextResponse.json({ error: "Missing report id." }, { status: 400 })
     }
-    if (session.metadata?.offerId) {
-      await markDepositPaid(session.metadata.offerId)
-      return NextResponse.json({
-        ok: true,
-        kind: "deposit",
-        offerId: session.metadata.offerId,
-      })
+    const report = await unlockReport(reportId, session.id)
+    if (!report) {
+      return NextResponse.json({ error: "Report not found." }, { status: 404 })
     }
+    return NextResponse.json({ ok: true, report: toPublicReport(report) })
   }
 
-  if (body.kind === "pro" && (mode === "mock" || body.mock)) {
-    const jar = await cookies()
-    jar.set(PRO_COOKIE, "1", {
-      httpOnly: true,
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 365,
-    })
-    return NextResponse.json({ ok: true, kind: "pro", mode: "mock" })
+  if (body.mock && body.reportId) {
+    const report = await unlockReport(body.reportId, "mock")
+    if (!report) {
+      return NextResponse.json({ error: "Report not found." }, { status: 404 })
+    }
+    return NextResponse.json({ ok: true, report: toPublicReport(report), mode: "mock" })
   }
 
   return NextResponse.json({ error: "Nothing to confirm." }, { status: 400 })

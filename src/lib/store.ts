@@ -1,11 +1,11 @@
 import { promises as fs } from "fs"
 import path from "path"
 import { get, list, put } from "@vercel/blob"
-import type { Offer } from "./types"
+import type { CheckReport } from "./types"
 
 const DATA_DIR = path.join(process.cwd(), ".data")
-const OFFERS_FILE = path.join(DATA_DIR, "offers.json")
-const BLOB_PATHNAME = "scoped/offers.json"
+const REPORTS_FILE = path.join(DATA_DIR, "reports.json")
+const BLOB_PATHNAME = "clientproof/reports.json"
 
 function useBlob() {
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN)
@@ -14,13 +14,13 @@ function useBlob() {
 async function ensureFileStore() {
   await fs.mkdir(DATA_DIR, { recursive: true })
   try {
-    await fs.access(OFFERS_FILE)
+    await fs.access(REPORTS_FILE)
   } catch {
-    await fs.writeFile(OFFERS_FILE, "{}", "utf8")
+    await fs.writeFile(REPORTS_FILE, "{}", "utf8")
   }
 }
 
-async function readAll(): Promise<Record<string, Offer>> {
+async function readAll(): Promise<Record<string, CheckReport>> {
   if (useBlob()) {
     try {
       const result = await list({ prefix: BLOB_PATHNAME, limit: 1 })
@@ -32,22 +32,22 @@ async function readAll(): Promise<Record<string, Offer>> {
       })
       if (!blob || blob.statusCode !== 200 || !blob.stream) return {}
       const text = await new Response(blob.stream).text()
-      return JSON.parse(text) as Record<string, Offer>
+      return JSON.parse(text) as Record<string, CheckReport>
     } catch {
       return {}
     }
   }
 
   await ensureFileStore()
-  const raw = await fs.readFile(OFFERS_FILE, "utf8")
+  const raw = await fs.readFile(REPORTS_FILE, "utf8")
   try {
-    return JSON.parse(raw) as Record<string, Offer>
+    return JSON.parse(raw) as Record<string, CheckReport>
   } catch {
     return {}
   }
 }
 
-async function writeAll(data: Record<string, Offer>) {
+async function writeAll(data: Record<string, CheckReport>) {
   const body = JSON.stringify(data, null, 2)
   if (useBlob()) {
     await put(BLOB_PATHNAME, body, {
@@ -59,44 +59,29 @@ async function writeAll(data: Record<string, Offer>) {
     return
   }
   await ensureFileStore()
-  await fs.writeFile(OFFERS_FILE, body, "utf8")
+  await fs.writeFile(REPORTS_FILE, body, "utf8")
 }
 
-export async function saveOffer(offer: Offer) {
+export async function saveReport(report: CheckReport) {
   const all = await readAll()
-  all[offer.id] = offer
+  all[report.id] = report
   await writeAll(all)
-  return offer
+  return report
 }
 
-export async function getOffer(id: string) {
+export async function getReport(id: string) {
   const all = await readAll()
   return all[id] ?? null
 }
 
-export async function deleteOffer(id: string) {
+export async function unlockReport(id: string, stripeSessionId?: string) {
   const all = await readAll()
-  if (!(id in all)) return false
-  delete all[id]
+  const report = all[id]
+  if (!report) return null
+  report.unlocked = true
+  report.paidAt = new Date().toISOString()
+  report.stripeSessionId = stripeSessionId ?? report.stripeSessionId
+  all[id] = report
   await writeAll(all)
-  return true
-}
-
-export async function listOffers(ownerId?: string) {
-  const all = await readAll()
-  const values = Object.values(all).filter((offer) =>
-    ownerId ? offer.ownerId === ownerId : true
-  )
-  return values.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
-}
-
-export async function markDepositPaid(id: string) {
-  const all = await readAll()
-  const offer = all[id]
-  if (!offer) return null
-  offer.paidDeposit = true
-  offer.paidAt = new Date().toISOString()
-  all[id] = offer
-  await writeAll(all)
-  return offer
+  return report
 }

@@ -1,18 +1,7 @@
-export function formatMoney(cents: number, currency = "USD") {
-  return new Intl.NumberFormat("en-US", {
+export function formatMoney(amountMinor: number, currency = "SEK") {
+  return new Intl.NumberFormat(currency === "SEK" ? "sv-SE" : "en-US", {
     style: "currency",
     currency,
-    maximumFractionDigits: cents % 100 === 0 ? 0 : 2,
-  }).format(cents / 100)
-}
-
-export function depositCents(priceCents: number, depositPercent: number) {
-  return Math.round((priceCents * depositPercent) / 100)
-}
-
-export function splitLines(value: string) {
-  return value
-    .split("\n")
-    .map((line) => line.replace(/^[-•*\d.)\s]+/, "").trim())
-    .filter(Boolean)
+    maximumFractionDigits: amountMinor % 100 === 0 ? 0 : 2,
+  }).format(amountMinor / 100)
 }

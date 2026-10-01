@@ -1,8 +1,6 @@
-import { cookies } from "next/headers"
-
-export const PRO_COOKIE = "scoped_pro"
+/** Kept for layout compatibility; ClientProof is pay-per-report, not a Pro cookie. */
+export const PRO_COOKIE = "clientproof_unused"
 
 export async function isProUnlocked() {
-  const jar = await cookies()
-  return jar.get(PRO_COOKIE)?.value === "1"
+  return false
 }
