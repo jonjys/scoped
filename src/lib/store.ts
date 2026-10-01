@@ -1,11 +1,17 @@
 import { promises as fs } from "fs"
 import path from "path"
+import { get, list, put } from "@vercel/blob"
 import type { Offer } from "./types"
 
 const DATA_DIR = path.join(process.cwd(), ".data")
 const OFFERS_FILE = path.join(DATA_DIR, "offers.json")
+const BLOB_PATHNAME = "scoped/offers.json"
 
-async function ensureStore() {
+function useBlob() {
+  return Boolean(process.env.BLOB_READ_WRITE_TOKEN)
+}
+
+async function ensureFileStore() {
   await fs.mkdir(DATA_DIR, { recursive: true })
   try {
     await fs.access(OFFERS_FILE)
@@ -15,7 +21,21 @@ async function ensureStore() {
 }
 
 async function readAll(): Promise<Record<string, Offer>> {
-  await ensureStore()
+  if (useBlob()) {
+    try {
+      const result = await list({ prefix: BLOB_PATHNAME, limit: 1 })
+      const match = result.blobs.find((b) => b.pathname === BLOB_PATHNAME)
+      if (!match) return {}
+      const blob = await get(BLOB_PATHNAME, { access: "private" })
+      if (!blob || blob.statusCode !== 200 || !blob.stream) return {}
+      const text = await new Response(blob.stream).text()
+      return JSON.parse(text) as Record<string, Offer>
+    } catch {
+      return {}
+    }
+  }
+
+  await ensureFileStore()
   const raw = await fs.readFile(OFFERS_FILE, "utf8")
   try {
     return JSON.parse(raw) as Record<string, Offer>
@@ -25,8 +45,18 @@ async function readAll(): Promise<Record<string, Offer>> {
 }
 
 async function writeAll(data: Record<string, Offer>) {
-  await ensureStore()
-  await fs.writeFile(OFFERS_FILE, JSON.stringify(data, null, 2), "utf8")
+  const body = JSON.stringify(data, null, 2)
+  if (useBlob()) {
+    await put(BLOB_PATHNAME, body, {
+      access: "private",
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: "application/json",
+    })
+    return
+  }
+  await ensureFileStore()
+  await fs.writeFile(OFFERS_FILE, body, "utf8")
 }
 
 export async function saveOffer(offer: Offer) {
@@ -49,11 +79,12 @@ export async function deleteOffer(id: string) {
   return true
 }
 
-export async function listOffers() {
+export async function listOffers(ownerId?: string) {
   const all = await readAll()
-  return Object.values(all).sort((a, b) =>
-    a.createdAt < b.createdAt ? 1 : -1
+  const values = Object.values(all).filter((offer) =>
+    ownerId ? offer.ownerId === ownerId : true
   )
+  return values.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
 }
 
 export async function markDepositPaid(id: string) {
@@ -65,8 +96,4 @@ export async function markDepositPaid(id: string) {
   all[id] = offer
   await writeAll(all)
   return offer
-}
-
-export function countActiveOffers(offers: Offer[]) {
-  return offers.length
 }

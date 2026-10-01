@@ -1,6 +1,7 @@
 export type Offer = {
   id: string
   createdAt: string
+  ownerId?: string
   freelancerName: string
   clientName: string
   title: string

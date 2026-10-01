@@ -60,13 +60,13 @@ export default function HomePage() {
               Scope a job
             </Link>
             <Link
-              href="/pro"
+              href="/connect"
               className={cn(
                 buttonVariants({ size: "lg", variant: "outline" }),
                 "min-h-11 bg-white/70 px-5"
               )}
             >
-              See Pro — $19
+              Connect your AI
             </Link>
           </div>
         </div>

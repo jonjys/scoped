@@ -10,6 +10,22 @@ The hole: freelancers burn time on vague Slack dumps, scope creep, and unpaid �
 - Shareable offer pages at `/o/[id]`
 - Deposit checkout (Stripe when keys are set, otherwise local mock that records payment)
 - **Scoped Pro — $19** one-time unlock (unlimited offers, no watermark)
+- **Connect AI** at `/connect` — API keys, Cursor MCP, OpenAPI for ChatGPT Actions
+
+## AI connection
+
+1. Open `/connect` and create an API key (`sk_scoped_...`)
+2. **Cursor:** paste the MCP config (Settings → MCP)
+3. **ChatGPT / other agents:** use `/api/openapi` as an Action schema with Bearer auth
+4. Tools: `create_scoped_offer`, `get_scoped_offer`, `list_scoped_offers`
+
+Endpoints:
+
+- `POST /api/keys` — mint a key
+- `GET|POST /api/v1/offers` — list / create (Bearer)
+- `GET /api/v1/offers/:id` — fetch one
+- `POST /api/mcp` — MCP JSON-RPC
+- `GET /api/openapi` — OpenAPI 3.1
 
 ## Run locally
 

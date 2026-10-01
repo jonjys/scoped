@@ -41,6 +41,12 @@ export default async function RootLayout({
           </Link>
           <nav className="flex items-center gap-4 text-sm">
             <Link
+              href="/connect"
+              className="text-[var(--muted-ink)] transition hover:text-[var(--ink)]"
+            >
+              Connect AI
+            </Link>
+            <Link
               href="/new"
               className="text-[var(--muted-ink)] transition hover:text-[var(--ink)]"
             >
