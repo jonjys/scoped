@@ -17,7 +17,7 @@
     "offers",
     "scope"
   ],
-  "logo": "assets/logo.svg",
+  "logo": "assets/marketplace-logo.png",
   "mcpServers": "mcp.json",
   "variables": {
     "type": "object",
