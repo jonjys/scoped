@@ -147,9 +147,30 @@ export function ConnectClient({ baseUrl }: { baseUrl: string }) {
         <pre className="overflow-x-auto rounded-lg bg-[var(--ink)] p-4 text-xs leading-relaxed text-[var(--paper)]">
           {cursorConfig}
         </pre>
-        <Button variant="outline" onClick={() => copy("cursor", cursorConfig)}>
-          {copied === "cursor" ? "Copied" : "Copy Cursor config"}
-        </Button>
+        <div className="flex flex-wrap gap-3">
+          <Button variant="outline" onClick={() => copy("cursor", cursorConfig)}>
+            {copied === "cursor" ? "Copied" : "Copy Cursor config"}
+          </Button>
+          {key && (
+            <Button
+              variant="outline"
+              onClick={() => copy("install", installLink)}
+            >
+              {copied === "install" ? "Copied" : "Copy one-click install link"}
+            </Button>
+          )}
+        </div>
+        {key && (
+          <p className="text-sm text-[var(--muted-ink)]">
+            One-click:{" "}
+            <a
+              className="break-all underline underline-offset-2"
+              href={installLink}
+            >
+              Open install link in Cursor
+            </a>
+          </p>
+        )}
       </section>
 
       <section className="space-y-4 rounded-2xl border border-[var(--line)] bg-white/70 p-6">

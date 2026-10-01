@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "scoped": {
-      "url": "https://scoped-theta.vercel.app/api/mcp",
+      "url": "https://scoped.nyttolabs.com/api/mcp",
       "headers": {
         "Authorization": "Bearer ${SCOPED_API_KEY}"
       }

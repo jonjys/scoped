@@ -2,6 +2,8 @@
 
 Turn a messy client brief into a **fixed-scope offer page** and collect a deposit before you start work.
 
+**Live:** [scoped.nyttolabs.com](https://scoped.nyttolabs.com)
+
 The hole: freelancers burn time on vague Slack dumps, scope creep, and unpaid “quick projects.” Scoped locks what’s in, what’s out, the price, and a pay-to-start deposit link.
 
 ## Features
@@ -32,7 +34,7 @@ Endpoints:
 This repo is packaged as a Cursor plugin:
 
 - [`.cursor-plugin/plugin.json`](.cursor-plugin/plugin.json)
-- [`mcp.json`](mcp.json) → `https://scoped-theta.vercel.app/api/mcp`
+- [`mcp.json`](mcp.json) → `https://scoped.nyttolabs.com/api/mcp`
 - [`skills/create-scoped-offer/`](skills/create-scoped-offer/)
 
 To appear as a selectable plugin in Cursor Customize / Marketplace:

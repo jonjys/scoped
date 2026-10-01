@@ -6,7 +6,7 @@
     "name": "Scoped",
     "email": "fkornelind@nyttolabs.com"
   },
-  "homepage": "https://scoped-theta.vercel.app",
+  "homepage": "https://scoped.nyttolabs.com",
   "repository": "https://github.com/jonjys/scoped",
   "license": "MIT",
   "keywords": [
@@ -25,7 +25,7 @@
       "SCOPED_API_KEY": {
         "type": "string",
         "title": "Scoped API key",
-        "description": "Create at https://scoped-theta.vercel.app/connect — starts with sk_scoped_"
+        "description": "Create at https://scoped.nyttolabs.com/connect — starts with sk_scoped_"
       }
     },
     "required": ["SCOPED_API_KEY"]
