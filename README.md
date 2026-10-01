@@ -1,41 +1,11 @@
-# ClientProof
+# ClientProof → LiveProof
 
-Paste an inbound client/hiring message. Get a **go/no-go risk score** before you quote or start work.
+This product was merged into **[LiveProof](https://liveproof.nyttolabs.com)**.
 
-**Live:** [clientproof.nyttolabs.com](https://clientproof.nyttolabs.com)
+- Message check: [liveproof.nyttolabs.com/check](https://liveproof.nyttolabs.com/check)
+- Also: [clientproof.nyttolabs.com](https://clientproof.nyttolabs.com) → `/check`
+- Person stamp (existing): [liveproof.nyttolabs.com](https://liveproof.nyttolabs.com)
 
-## Why this product
+Source of truth: [github.com/jonjys/liveproof](https://github.com/jonjys/liveproof)
 
-This is not a marketplace and not another freelancing CRM.
-
-- The person with the stomach-drop email **is** the customer
-- Free scan in seconds → **$5 / 49:-** sealed report (actions + reply script)
-- No account
-
-Same shape as LiveProof / Vatidence: acute pain, pay-per-use, done.
-
-## Run locally
-
-```bash
-npm install
-npm run dev -- --port 3847
-```
-
-Open [http://localhost:3847](http://localhost:3847).
-
-### Stripe (optional)
-
-```bash
-STRIPE_SECRET_KEY=sk_live_...
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_...
-BLOB_READ_WRITE_TOKEN=...
-```
-
-Without Stripe keys, unlock uses a local mock so you can demo the full flow.
-
-## Scripts
-
-- `npm run dev` — development server
-- `npm run build` — production build
-- `npm run start` — production server
-- `npm run lint` — ESLint
+This repo (`scoped` / ClientProof) only redirects to LiveProof.
