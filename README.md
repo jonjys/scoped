@@ -1,14 +1,11 @@
-# ClientProof → LiveProof
+# → LiveProof (source of truth)
 
-This product was merged into **[LiveProof](https://liveproof.nyttolabs.com)**.
+**24h goal:** first paid message-check unlock.
 
-- Message check: [liveproof.nyttolabs.com/check](https://liveproof.nyttolabs.com/check)
-- Also: [clientproof.nyttolabs.com](https://clientproof.nyttolabs.com) → `/check`
-- Person stamp: [liveproof.nyttolabs.com](https://liveproof.nyttolabs.com)
-- MCP / Cursor plugin: [github.com/jonjys/liveproof](https://github.com/jonjys/liveproof) (`.cursor-plugin` + `/api/mcp`)
+- App: https://liveproof.nyttolabs.com/check
+- Instant demo → paywall: https://liveproof.nyttolabs.com/check/try/macbook-crypto
+- SEO: https://liveproof.nyttolabs.com/freelance-scam-check
+- MCP: https://liveproof.nyttolabs.com/api/mcp
+- Repo: https://github.com/jonjys/liveproof
 
-**Plugin note:** The old Scoped Marketplace submission does **not** auto-update. It pointed at Scoped, which we killed. Use the LiveProof plugin / MCP instead.
-
-Source of truth: [github.com/jonjys/liveproof](https://github.com/jonjys/liveproof)
-
-This repo only redirects to LiveProof.
+Scoped/ClientProof here only redirects. Old Scoped Marketplace plugin does **not** auto-update — republish LiveProof.
